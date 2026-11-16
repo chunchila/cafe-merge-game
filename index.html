@@ -233,11 +233,12 @@ function spawnCustomer(){
  renderCustomers();save();
 }
 // --- drag & tap ---
-const ghost=$("ghost");let drag=null;
+const ghost=$("ghost");let drag=null,tapCell=null;
 document.addEventListener("pointerdown",e=>{
+ const c=e.target.closest(".cell");
+ tapCell=c?+c.dataset.i:null;
  const t=e.target.closest(".tile");if(!t)return;
- const i=+t.dataset.i;
- drag={from:i,x:e.clientX,y:e.clientY,moved:false};
+ drag={from:+t.dataset.i,x:e.clientX,y:e.clientY,moved:false};
 });
 document.addEventListener("pointermove",e=>{
  if(!drag)return;
@@ -253,7 +254,8 @@ document.addEventListener("pointermove",e=>{
  }
 });
 document.addEventListener("pointerup",e=>{
- if(!drag)return;
+ const tc=tapCell;tapCell=null;
+ if(!drag){if(tc!==null)onCellTap(tc);return}
  const d=drag;drag=null;ghost.style.display="none";
  document.querySelectorAll(".drop-hint").forEach(el=>el.classList.remove("drop-hint"));
  if(d.moved){
@@ -269,7 +271,7 @@ document.addEventListener("pointerup",e=>{
   renderAll();return;
  }
  // tap
- onCellTap(d.from);
+ if(tc!==null)onCellTap(tc);else onCellTap(d.from);
 });
 function onCellTap(i){
  if(!board[i]){if(sel!==null){if(tryMerge(sel,i)){sel=null;$("selbar").classList.remove("show")}renderAll();save()}return}
