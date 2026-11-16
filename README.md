@@ -4,7 +4,7 @@
 
 ## 🎮 משחק חי
 
-**[לחצו כאן לשחק](https://dino-games-2xv7znh8u-romans-projects-97b8739c.vercel.app)**
+**[לחצו כאן לשחק](https://dino-games-hub3ies9d-romans-projects-97b8739c.vercel.app)**
 
 ## איך משחקים
 
